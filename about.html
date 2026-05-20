@@ -5,66 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | Milad Hassani</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { font-family: 'Inter', sans-serif; }
         :root { --primary: #00d4ff; --secondary: #7c3aed; --accent: #f0abfc; }
-        body { background: linear-gradient(135deg, #0a0a0f 0%, #111118 50%, #0a0a0f 100%); overflow-x: hidden; }
-        .cursor-glow { position: fixed; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%); pointer-events: none; z-index: 1; transform: translate(-50%, -50%); }
-        .grid-bg { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px); background-size: 50px 50px; z-index: 0; }
-        .glass-panel { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .glass-panel:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(0, 212, 255, 0.3); box-shadow: 0 0 40px rgba(0, 212, 255, 0.1); }
-        .nav-container { background: rgba(10, 10, 15, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .nav-link { position: relative; color: rgba(255, 255, 255, 0.6); transition: all 0.3s ease; }
-        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: linear-gradient(90deg, var(--primary), var(--secondary)); transition: width 0.3s ease; }
-        .nav-link:hover { color: var(--primary); }
-        .nav-link:hover::after { width: 100%; }
-        .btn-glow { position: relative; background: linear-gradient(135deg, var(--primary), var(--secondary)); overflow: hidden; transition: all 0.3s ease; }
-        .btn-glow::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); transition: left 0.5s ease; }
-        .btn-glow:hover::before { left: 100%; }
-        .btn-glow:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3); }
-        .gradient-text { background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        .profile-ring { position: relative; }
-        .profile-ring::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent)); z-index: -1; animation: spin 4s linear infinite; }
-        .profile-ring::after { content: ''; position: absolute; inset: -20px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); z-index: -2; filter: blur(20px); opacity: 0.5; }
+        * { font-family: 'DM Sans', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background: linear-gradient(180deg, #050505 0%, #0a0a0f 50%, #080810 100%); overflow-x: hidden; }
+        .noise-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+        .cursor-glow { position: fixed; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(0, 212, 255, 0.06) 0%, transparent 60%); pointer-events: none; z-index: 1; transform: translate(-50%, -50%); }
+        .grid-bg { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px); background-size: 60px 60px; z-index: 0; }
+        .glass-panel { background: rgba(255, 255, 255, 0.025); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.06); transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1); }
+        .glass-panel:hover { background: rgba(255, 255, 255, 0.04); border-color: rgba(0, 212, 255, 0.2); }
+        .nav-pill { background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 100px; padding: 0.75rem 1.5rem; transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1); }
+        .nav-link { position: relative; color: rgba(255, 255, 255, 0.5); transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1); font-weight: 500; font-size: 0.875rem; }
+        .nav-link:hover { color: rgba(255, 255, 255, 0.9); }
+        .btn-primary { position: relative; background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%); padding: 1rem 2rem; border-radius: 100px; font-weight: 600; transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1); display: inline-flex; align-items: center; gap: 0.75rem; }
+        .btn-primary:hover { transform: scale(1.02); box-shadow: 0 12px 40px rgba(0, 212, 255, 0.25); }
+        .btn-primary:active { transform: scale(0.98); }
+        .btn-primary .btn-icon { width: 32px; height: 32px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1); }
+        .btn-primary:hover .btn-icon { transform: translateX(3px) translateY(-2px) scale(1.1); background: rgba(255, 255, 255, 0.25); }
+        .gradient-text { background: linear-gradient(135deg, #00d4ff 0%, #f0abfc 50%, #7c3aed 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .reveal { opacity: 0; transform: translateY(50px); filter: blur(10px); transition: all 1s cubic-bezier(0.32, 0.72, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); filter: blur(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .profile-ring { position: relative; width: 320px; height: 320px; }
+        .profile-ring::before { content: ''; position: absolute; inset: -8px; border-radius: 50%; background: linear-gradient(135deg, #00d4ff, #7c3aed, #f0abfc); z-index: -1; animation: spin 8s linear infinite; }
+        .profile-ring::after { content: ''; position: absolute; inset: -40px; border-radius: 50%; background: radial-gradient(circle, rgba(0, 212, 255, 0.3) 0%, transparent 70%); z-index: -2; filter: blur(30px); animation: breathe 6s ease-in-out infinite; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes breathe { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.1); } }
         .float-slow { animation: floatSlow 8s ease-in-out infinite; }
         @keyframes floatSlow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        .skill-bar { background: linear-gradient(90deg, var(--primary), var(--secondary)); height: 8px; border-radius: 4px; }
-        .orb-3d { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; pointer-events: none; }
+        .skill-bar { background: linear-gradient(90deg, #00d4ff, #7c3aed); height: 8px; border-radius: 4px; }
+        .orb-3d { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.25; pointer-events: none; }
+        .stat-card { background: linear-gradient(135deg, rgba(0, 212, 255, 0.03) 0%, rgba(124, 58, 237, 0.03) 100%); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.25rem; padding: 2rem; text-align: center; transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1); }
+        .stat-card:hover { background: linear-gradient(135deg, rgba(0, 212, 255, 0.06) 0%, rgba(124, 58, 237, 0.06) 100%); border-color: rgba(0, 212, 255, 0.15); }
+        .stat-number { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; font-weight: 700; background: linear-gradient(135deg, #00d4ff 0%, #f0abfc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+        .display-lg { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 600; line-height: 1.1; letter-spacing: -0.01em; }
+        .footer-link { width: 44px; height: 44px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1); color: rgba(255, 255, 255, 0.5); }
+        .footer-link:hover { background: rgba(0, 212, 255, 0.1); border-color: rgba(0, 212, 255, 0.3); color: #00d4ff; transform: translateY(-3px); }
     </style>
 </head>
 <body class="text-white min-h-screen">
+    <div class="noise-overlay"></div>
     <div class="cursor-glow" id="cursorGlow"></div>
     <div class="grid-bg"></div>
-    <div class="orb-3d w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 top-0 left-0"></div>
-    <div class="orb-3d w-80 h-80 bg-gradient-to-r from-purple-500/20 to-pink-500/20 bottom-0 right-0"></div>
+    <div class="orb-3d w-[500px] h-[500px] bg-gradient-to-r from-cyan-500/30 to-blue-500/30 top-0 left-0"></div>
+    <div class="orb-3d w-[400px] h-[400px] bg-gradient-to-r from-purple-500/30 to-pink-500/30 bottom-0 right-0"></div>
 
-    <nav class="nav-container fixed top-0 left-0 right-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-5">
-            <div class="flex items-center justify-between">
-                <a href="index.html" class="text-2xl font-bold gradient-text">MH</a>
-                <div class="hidden md:flex items-center gap-10">
-                    <a href="index.html" class="nav-link text-sm font-medium">Home</a>
-                    <a href="work.html" class="nav-link text-sm font-medium">Work</a>
-                    <a href="about.html" class="nav-link text-sm font-medium" style="color: var(--primary);">About</a>
-                    <a href="services.html" class="nav-link text-sm font-medium">Services</a>
-                    <a href="contact.html" class="btn-glow px-6 py-2.5 rounded-full text-sm font-semibold">Contact</a>
-                </div>
-                <button id="menuBtn" class="md:hidden p-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                </button>
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50" style="width: 90%; max-width: 600px;">
+        <div class="nav-pill mx-auto flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold gradient-text">MH</a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="work.html" class="nav-link">Work</a>
+                <a href="about.html" class="nav-link" style="color: #00d4ff;">About</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="contact.html" class="btn-primary" style="padding: 0.625rem 1.25rem; font-size: 0.875rem;">
+                    Contact
+                    <span class="btn-icon">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </span>
+                </a>
             </div>
-            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 border-t border-white/5">
-                <div class="flex flex-col gap-4 pt-4">
-                    <a href="index.html" class="text-sm font-medium text-gray-400">Home</a>
-                    <a href="work.html" class="text-sm font-medium text-gray-400">Work</a>
-                    <a href="about.html" class="text-sm font-medium" style="color: var(--primary);">About</a>
-                    <a href="services.html" class="text-sm font-medium text-gray-400">Services</a>
-                    <a href="contact.html" class="btn-glow px-5 py-2.5 rounded-full text-sm font-semibold text-center w-fit">Contact</a>
-                </div>
+            <button id="menuBtn" class="md:hidden p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden mt-4">
+            <div class="glass-panel rounded-2xl p-6 flex flex-col gap-4">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="work.html" class="nav-link">Work</a>
+                <a href="about.html" class="nav-link" style="color: #00d4ff;">About</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="contact.html" class="btn-primary w-fit">Contact</a>
             </div>
         </div>
     </nav>
@@ -72,30 +87,30 @@
     <section class="pt-32 pb-20 relative z-10">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div class="reveal">
+                <div class="reveal reveal-delay-1">
                     <div class="relative">
-                        <div class="profile-ring w-72 h-72 md:w-96 md:h-96 float-slow">
+                        <div class="profile-ring float-slow mx-auto lg:mx-0">
                             <img src="https://raw.githubusercontent.com/mmiladhassani-maker/portfolio/master/profile.jpg" alt="Milad Hassani" class="w-full h-full object-cover rounded-full">
                         </div>
-                        <div class="absolute -bottom-6 -right-6 glass-panel p-6 rounded-2xl">
-                            <p class="text-4xl font-bold gradient-text">8+</p>
-                            <p class="text-sm text-gray-400">Years Experience</p>
+                        <div class="absolute -bottom-6 -right-6 glass-panel p-6 rounded-2xl hidden lg:block">
+                            <p class="stat-number" style="font-size: 2.5rem;">8+</p>
+                            <p class="text-sm text-white/40">Years Experience</p>
                         </div>
-                        <div class="absolute -top-6 -left-6 glass-panel p-6 rounded-2xl">
-                            <p class="text-4xl font-bold gradient-text">150+</p>
-                            <p class="text-sm text-gray-400">Projects</p>
+                        <div class="absolute -top-6 -left-6 glass-panel p-6 rounded-2xl hidden lg:block">
+                            <p class="stat-number" style="font-size: 2.5rem;">150+</p>
+                            <p class="text-sm text-white/40">Projects</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="reveal">
-                    <p class="text-sm text-cyan-400 mb-3 uppercase tracking-widest">About Me</p>
-                    <h1 class="text-4xl md:text-5xl font-bold mb-6">Designing the Future,<br><span class="gradient-text">One Pixel at a Time</span></h1>
-                    <p class="text-gray-400 text-lg mb-6 leading-relaxed">
+                <div class="reveal reveal-delay-2">
+                    <p class="text-sm text-cyan-400 mb-4 uppercase tracking-[0.2em] font-semibold">About Me</p>
+                    <h1 class="display-lg mb-6">Designing the Future,<br><span class="gradient-text">One Pixel at a Time</span></h1>
+                    <p class="text-white/50 text-lg mb-6 leading-relaxed">
                         I'm Milad Hassani, a passionate creative designer and developer based in the digital realm. With over 8 years of experience, I've helped startups, agencies, and Fortune 500 companies transform their digital presence through thoughtful design and cutting-edge technology.
                     </p>
-                    <p class="text-gray-400 mb-8 leading-relaxed">
-                        My approach combines strategic thinking with creative execution. I believe that great design isn't just about aesthetics—it's about solving problems and creating meaningful experiences that resonate with users and drive business results.
+                    <p class="text-white/50 mb-8 leading-relaxed">
+                        My approach combines strategic thinking with creative execution. I believe that great design isn't just about aesthetics—it is about solving problems and creating meaningful experiences that resonate with users and drive business results.
                     </p>
                     
                     <div class="mb-10">
@@ -104,108 +119,113 @@
                             <div>
                                 <div class="flex justify-between mb-2">
                                     <span class="text-sm">UI/UX Design</span>
-                                    <span class="text-sm text-gray-400">95%</span>
+                                    <span class="text-sm text-white/40">95%</span>
                                 </div>
                                 <div class="h-2 bg-white/10 rounded-full"><div class="skill-bar" style="width: 95%"></div></div>
                             </div>
                             <div>
                                 <div class="flex justify-between mb-2">
                                     <span class="text-sm">Web Development</span>
-                                    <span class="text-sm text-gray-400">90%</span>
+                                    <span class="text-sm text-white/40">90%</span>
                                 </div>
                                 <div class="h-2 bg-white/10 rounded-full"><div class="skill-bar" style="width: 90%"></div></div>
                             </div>
                             <div>
                                 <div class="flex justify-between mb-2">
                                     <span class="text-sm">Brand Identity</span>
-                                    <span class="text-sm text-gray-400">85%</span>
+                                    <span class="text-sm text-white/40">85%</span>
                                 </div>
                                 <div class="h-2 bg-white/10 rounded-full"><div class="skill-bar" style="width: 85%"></div></div>
                             </div>
                             <div>
                                 <div class="flex justify-between mb-2">
                                     <span class="text-sm">Motion Design</span>
-                                    <span class="text-sm text-gray-400">80%</span>
+                                    <span class="text-sm text-white/40">80%</span>
                                 </div>
                                 <div class="h-2 bg-white/10 rounded-full"><div class="skill-bar" style="width: 80%"></div></div>
                             </div>
                         </div>
                     </div>
                     
-                    <a href="contact.html" class="btn-glow inline-block px-8 py-4 rounded-full font-semibold">Let's Work Together</a>
+                    <a href="contact.html" class="btn-primary">
+                        Let's Work Together
+                        <span class="btn-icon">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </span>
+                    </a>
                 </div>
             </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20">
-                <div class="glass-panel p-6 rounded-2xl text-center reveal">
-                    <p class="text-4xl font-bold gradient-text mb-2">150+</p>
-                    <p class="text-sm text-gray-400">Projects Completed</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-24">
+                <div class="stat-card reveal reveal-delay-1">
+                    <p class="stat-number mb-2">150+</p>
+                    <p class="text-sm text-white/40">Projects Completed</p>
                 </div>
-                <div class="glass-panel p-6 rounded-2xl text-center reveal">
-                    <p class="text-4xl font-bold gradient-text mb-2">50+</p>
-                    <p class="text-sm text-gray-400">Happy Clients</p>
+                <div class="stat-card reveal reveal-delay-2">
+                    <p class="stat-number mb-2">50+</p>
+                    <p class="text-sm text-white/40">Happy Clients</p>
                 </div>
-                <div class="glass-panel p-6 rounded-2xl text-center reveal">
-                    <p class="text-4xl font-bold gradient-text mb-2">15+</p>
-                    <p class="text-sm text-gray-400">Awards Won</p>
+                <div class="stat-card reveal reveal-delay-3">
+                    <p class="stat-number mb-2">15+</p>
+                    <p class="text-sm text-white/40">Awards Won</p>
                 </div>
-                <div class="glass-panel p-6 rounded-2xl text-center reveal">
-                    <p class="text-4xl font-bold gradient-text mb-2">8+</p>
-                    <p class="text-sm text-gray-400">Years Experience</p>
+                <div class="stat-card reveal reveal-delay-4">
+                    <p class="stat-number mb-2">8+</p>
+                    <p class="text-sm text-white/40">Years Experience</p>
                 </div>
             </div>
             
-            <div class="mt-20">
+            <div class="mt-24">
                 <h2 class="text-3xl font-bold text-center mb-12 reveal">Work Experience</h2>
                 <div class="space-y-6">
-                    <div class="glass-panel p-8 rounded-3xl reveal">
+                    <div class="glass-panel p-8 rounded-3xl reveal reveal-delay-1">
                         <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
                             <div>
                                 <h3 class="text-xl font-bold">Senior Designer</h3>
                                 <p class="text-cyan-400">TechCorp Studios</p>
                             </div>
-                            <span class="text-sm text-gray-400 glass-panel px-4 py-2 rounded-full">2022 - Present</span>
+                            <span class="text-sm text-white/40 glass-panel px-4 py-2 rounded-full">2022 - Present</span>
                         </div>
-                        <p class="text-gray-400">Leading design initiatives for enterprise clients, managing a team of 5 designers, and overseeing the complete design lifecycle from concept to delivery.</p>
+                        <p class="text-white/50">Leading design initiatives for enterprise clients, managing a team of 5 designers, and overseeing the complete design lifecycle from concept to delivery.</p>
                     </div>
-                    <div class="glass-panel p-8 rounded-3xl reveal">
+                    <div class="glass-panel p-8 rounded-3xl reveal reveal-delay-2">
                         <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
                             <div>
                                 <h3 class="text-xl font-bold">Creative Designer</h3>
                                 <p class="text-purple-400">Digital Agency X</p>
                             </div>
-                            <span class="text-sm text-gray-400 glass-panel px-4 py-2 rounded-full">2019 - 2022</span>
+                            <span class="text-sm text-white/40 glass-panel px-4 py-2 rounded-full">2019 - 2022</span>
                         </div>
-                        <p class="text-gray-400">Created visually stunning interfaces for various clients across industries including healthcare, fintech, and e-commerce.</p>
+                        <p class="text-white/50">Created visually stunning interfaces for various clients across industries including healthcare, fintech, and e-commerce.</p>
                     </div>
-                    <div class="glass-panel p-8 rounded-3xl reveal">
+                    <div class="glass-panel p-8 rounded-3xl reveal reveal-delay-3">
                         <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
                             <div>
                                 <h3 class="text-xl font-bold">UI Designer</h3>
                                 <p class="text-pink-400">StartupXYZ</p>
                             </div>
-                            <span class="text-sm text-gray-400 glass-panel px-4 py-2 rounded-full">2017 - 2019</span>
+                            <span class="text-sm text-white/40 glass-panel px-4 py-2 rounded-full">2017 - 2019</span>
                         </div>
-                        <p class="text-gray-400">Designed and prototyped user interfaces for a B2B SaaS platform, contributing to a 40% increase in user engagement.</p>
+                        <p class="text-white/50">Designed and prototyped user interfaces for a B2B SaaS platform, contributing to a 40% increase in user engagement.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-12 border-t border-white/5 relative z-10">
+    <footer class="py-16 border-t border-white/5 relative z-10">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
                 <div>
                     <a href="index.html" class="text-2xl font-bold gradient-text">MH</a>
-                    <p class="text-sm text-gray-500 mt-2">Creative Designer & Developer</p>
+                    <p class="text-sm text-white/40 mt-3">Creative Designer & Developer</p>
                 </div>
-                <div class="flex gap-4">
-                    <a href="#" class="w-10 h-10 glass-panel rounded-full flex items-center justify-center hover:bg-cyan-500/20 transition-all"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.351-.205-8.199-2.299-10.816-5.405-.453 1.29-.702 2.678-.702 4.228 0 .858.045 1.694.138 2.49-4.564-.232-.938-2.412-1.118-3.665-.128-.031-.261-.046-.396-.046-.303 0-.595.033-.877.095.968 2.978 4.755 5.161 8.936 5.33-.924 2.487-2.336 4.161-4.705 4.161-1.305 0-2.473-.481-3.304-1.267 2.063 1.295 4.519 2.038 7.154 2.038-1.216 3.358-3.91 5.4-7.29 5.4 1.59 1.021 3.385 1.623 5.36 1.623 6.43 0 9.937-5.32 9.937-9.937 0-.15 0-.298-.01-.442.682-.494 1.273-1.114 1.744-1.82z"/></svg></a>
-                    <a href="#" class="w-10 h-10 glass-panel rounded-full flex items-center justify-center hover:bg-cyan-500/20 transition-all"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
-                    <a href="#" class="w-10 h-10 glass-panel rounded-full flex items-center justify-center hover:bg-cyan-500/20 transition-all"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                <div class="flex gap-3">
+                    <a href="#" class="footer-link"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.351-.205-8.199-2.299-10.816-5.405-.453 1.29-.702 2.678-.702 4.228 0 .858.045 1.694.138 2.49-4.564-.232-.938-2.412-1.118-3.665-.128-.031-.261-.046-.396-.046-.303 0-.595.033-.877.095.968 2.978 4.755 5.161 8.936 5.33-.924 2.487-2.336 4.161-4.705 4.161-1.305 0-2.473-.481-3.304-1.267 2.063 1.295 4.519 2.038 7.154 2.038-1.216 3.358-3.91 5.4-7.29 5.4 1.59 1.021 3.385 1.623 5.36 1.623 6.43 0 9.937-5.32 9.937-9.937 0-.15 0-.298-.01-.442.682-.494 1.273-1.114 1.744-1.82z"/></svg></a>
+                    <a href="#" class="footer-link"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                    <a href="#" class="footer-link"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
                 </div>
-                <p class="text-sm text-gray-500">© 2025 Milad Hassani</p>
+                <p class="text-sm text-white/30">© 2025 Milad Hassani</p>
             </div>
         </div>
     </footer>
@@ -214,14 +234,16 @@
         const cursorGlow = document.getElementById('cursorGlow');
         let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
         document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
-        function animateCursor() { glowX += (mouseX - glowX) * 0.1; glowY += (mouseY - glowY) * 0.1; cursorGlow.style.left = glowX + 'px'; cursorGlow.style.top = glowY + 'px'; requestAnimationFrame(animateCursor); }
+        function animateCursor() { glowX += (mouseX - glowX) * 0.08; glowY += (mouseY - glowY) * 0.08; cursorGlow.style.left = glowX + 'px'; cursorGlow.style.top = glowY + 'px'; requestAnimationFrame(animateCursor); }
         animateCursor();
         const menuBtn = document.getElementById('menuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
         const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 });
+        const revealObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
         revealElements.forEach(el => revealObserver.observe(el));
+        const nav = document.querySelector('.nav-pill');
+        window.addEventListener('scroll', () => { if (window.scrollY > 50) { nav.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.4)'; } else { nav.style.boxShadow = 'none'; } });
     </script>
 </body>
 </html>
