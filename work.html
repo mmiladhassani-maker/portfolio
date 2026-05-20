@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work | Milad Hassani</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        :root { --primary: #00d4ff; --secondary: #7c3aed; --accent: #f0abfc; }
+        body { background: linear-gradient(135deg, #0a0a0f 0%, #111118 50%, #0a0a0f 100%); overflow-x: hidden; }
+        .cursor-glow { position: fixed; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%); pointer-events: none; z-index: 1; transform: translate(-50%, -50%); }
+        .grid-bg { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px); background-size: 50px 50px; z-index: 0; }
+        .glass-panel { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .glass-panel:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(0, 212, 255, 0.3); box-shadow: 0 0 40px rgba(0, 212, 255, 0.1); }
+        .nav-container { background: rgba(10, 10, 15, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .nav-link { position: relative; color: rgba(255, 255, 255, 0.6); transition: all 0.3s ease; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: linear-gradient(90deg, var(--primary), var(--secondary)); transition: width 0.3s ease; }
+        .nav-link:hover { color: var(--primary); }
+        .nav-link:hover::after { width: 100%; }
+        .btn-glow { position: relative; background: linear-gradient(135deg, var(--primary), var(--secondary)); overflow: hidden; transition: all 0.3s ease; }
+        .btn-glow::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); transition: left 0.5s ease; }
+        .btn-glow:hover::before { left: 100%; }
+        .btn-glow:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3); }
+        .gradient-text { background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .project-card { position: relative; overflow: hidden; }
+        .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--primary), transparent); transform: scaleX(0); transition: transform 0.5s ease; }
+        .project-card:hover::before { transform: scaleX(1); }
+        .orb-3d { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; pointer-events: none; }
+        .filter-btn { transition: all 0.3s ease; }
+        .filter-btn:hover, .filter-btn.active { background: rgba(0, 212, 255, 0.1); color: var(--primary); }
+    </style>
+</head>
+<body class="text-white min-h-screen">
+    <div class="cursor-glow" id="cursorGlow"></div>
+    <div class="grid-bg"></div>
+    <div class="orb-3d w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 top-0 left-0"></div>
+    <div class="orb-3d w-80 h-80 bg-gradient-to-r from-purple-500/20 to-pink-500/20 bottom-0 right-0"></div>
+
+    <nav class="nav-container fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-bold gradient-text">MH</a>
+                <div class="hidden md:flex items-center gap-10">
+                    <a href="index.html" class="nav-link text-sm font-medium">Home</a>
+                    <a href="work.html" class="nav-link text-sm font-medium" style="color: var(--primary);">Work</a>
+                    <a href="about.html" class="nav-link text-sm font-medium">About</a>
+                    <a href="services.html" class="nav-link text-sm font-medium">Services</a>
+                    <a href="contact.html" class="btn-glow px-6 py-2.5 rounded-full text-sm font-semibold">Contact</a>
+                </div>
+                <button id="menuBtn" class="md:hidden p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 border-t border-white/5">
+                <div class="flex flex-col gap-4 pt-4">
+                    <a href="index.html" class="text-sm font-medium text-gray-400">Home</a>
+                    <a href="work.html" class="text-sm font-medium" style="color: var(--primary);">Work</a>
+                    <a href="about.html" class="text-sm font-medium text-gray-400">About</a>
+                    <a href="services.html" class="text-sm font-medium text-gray-400">Services</a>
+                    <a href="contact.html" class="btn-glow px-5 py-2.5 rounded-full text-sm font-semibold text-center w-fit">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <p class="text-sm text-cyan-400 mb-3 uppercase tracking-widest">Portfolio</p>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">My <span class="gradient-text">Work</span></h1>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">A curated collection of projects that showcase my expertise in design and development.</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4 mb-16 reveal">
+                <button class="filter-btn active glass-panel px-6 py-3 rounded-full text-sm font-medium" data-filter="all">All</button>
+                <button class="filter-btn glass-panel px-6 py-3 rounded-full text-sm font-medium text-gray-400" data-filter="ui">UI/UX</button>
+                <button class="filter-btn glass-panel px-6 py-3 rounded-full text-sm font-medium text-gray-400" data-filter="web">Web</button>
+                <button class="filter-btn glass-panel px-6 py-3 rounded-full text-sm font-medium text-gray-400" data-filter="brand">Brand</button>
+                <button class="filter-btn glass-panel px-6 py-3 rounded-full text-sm font-medium text-gray-400" data-filter="mobile">Mobile</button>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projectsGrid">
+                <div class="project-card glass-panel rounded-2xl overflow-hidden reveal" data-category="ui">
+                    <div class="aspect-video overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop" alt="Analytics Dashboard" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="text-sm text-cyan-400 font-medium">UI/UX Design</p>
+                            <span class="text-xs text-gray-500">2025</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Analytics Dashboard</h3>
+                        <p class="text-gray-400 text-sm mb-4">Modern analytics platform with real-time data visualization.</p>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 glass-panel rounded-full text-xs">Figma</span>
+                            <span class="px-3 py-1 glass-panel rounded-full text-xs">React</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card glass-panel rounded-2xl overflow-hidden reveal" data-category="web">
+                    <div class="aspect-video overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop" alt="Luxury Store" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="text-sm text-purple-400 font-medium">E-commerce</p>
+                            <span class="text-xs text-gray-500">2025</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Luxury Brand Store</h3>
+                        <p class="text-gray-400 text-sm mb-4">Premium e-commerce with seamless checkout.</p>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 glass-panel rounded-full text-xs">Next.js</span>
+                            <span class="px-3 py-1 glass-panel rounded-full text-xs">Stripe</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card glass-panel rounded-2xl overflow-hidden reveal" data-category="mobile">
+                    <div class="aspect-video overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop" alt="Fitness Tracker" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="text-sm text-pink-400 font-medium">Mobile App</p>
+                            <span class="text-xs text-gray-500">2024</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Fitness Tracker</h3>
+                        <p class="text-gray-400 text-sm mb-4">Health tracking with beautiful visualizations.</p>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 glass-panel rounded-full text-xs">Flutter</span>
+                            <span class="px-3 py-1 glass-panel rounded-full text-xs">Firebase</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card glass-panel rounded-2xl overflow-hidden reveal" data-category="brand">
+                    <div class="aspect-video overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?w=600&h=400&fit=crop" alt="Agency Rebrand" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="text-sm text-orange-400 font-medium">Branding</p>
+                            <span class="text-xs text-gray-500">2024</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Creative Agency Rebrand</h3>
+                        <p class="text-gray-400 text-sm mb-4">Complete brand identity overhaul.</p>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 glass-panel rounded-full text-xs">Illustrator</span>
+                            <span class="px-3 py-1 glass-panel rounded-full text-xs">InDesign</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card glass-panel rounded-2xl overflow-hidden reveal" data-category="ui">
+                    <div class="aspect-video overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop" alt="SaaS Platform" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="text-sm text-cyan-400 font-medium">UI/UX Design</p>
+                            <span class="text-xs text-gray-500">2024</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">SaaS Platform</h3>
+                        <p class="text-gray-400 text-sm mb-4">Comprehensive SaaS dashboard.</p>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 glass-panel rounded-full text-xs">Figma</span>
+                            <span class="px-3 py-1 glass-panel rounded-full text-xs">Vue.js</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card glass-panel rounded-2xl overflow-hidden reveal" data-category="web">
+                    <div class="aspect-video overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&h=400&fit=crop" alt="Portfolio" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="text-sm text-purple-400 font-medium">Web Development</p>
+                            <span class="text-xs text-gray-500">2024</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Creative Portfolio</h3>
+                        <p class="text-gray-400 text-sm mb-4">Stunning portfolio website.</p>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 glass-panel rounded-full text-xs">Three.js</span>
+                            <span class="px-3 py-1 glass-panel rounded-full text-xs">GSAP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16 reveal">
+                <a href="contact.html" class="inline-flex items-center gap-2 glass-panel px-8 py-4 rounded-full font-medium hover:bg-white/10 transition-all">
+                    Interested in working together?
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-white/5 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div>
+                    <a href="index.html" class="text-2xl font-bold gradient-text">MH</a>
+                    <p class="text-sm text-gray-500 mt-2">Creative Designer & Developer</p>
+                </div>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 glass-panel rounded-full flex items-center justify-center hover:bg-cyan-500/20 transition-all"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.351-.205-8.199-2.299-10.816-5.405-.453 1.29-.702 2.678-.702 4.228 0 .858.045 1.694.138 2.49-4.564-.232-.938-2.412-1.118-3.665-.128-.031-.261-.046-.396-.046-.303 0-.595.033-.877.095.968 2.978 4.755 5.161 8.936 5.33-.924 2.487-2.336 4.161-4.705 4.161-1.305 0-2.473-.481-3.304-1.267 2.063 1.295 4.519 2.038 7.154 2.038-1.216 3.358-3.91 5.4-7.29 5.4 1.59 1.021 3.385 1.623 5.36 1.623 6.43 0 9.937-5.32 9.937-9.937 0-.15 0-.298-.01-.442.682-.494 1.273-1.114 1.744-1.82z"/></svg></a>
+                    <a href="#" class="w-10 h-10 glass-panel rounded-full flex items-center justify-center hover:bg-cyan-500/20 transition-all"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                    <a href="#" class="w-10 h-10 glass-panel rounded-full flex items-center justify-center hover:bg-cyan-500/20 transition-all"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                </div>
+                <p class="text-sm text-gray-500">© 2025 Milad Hassani</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const cursorGlow = document.getElementById('cursorGlow');
+        let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
+        document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+        function animateCursor() { glowX += (mouseX - glowX) * 0.1; glowY += (mouseY - glowY) * 0.1; cursorGlow.style.left = glowX + 'px'; cursorGlow.style.top = glowY + 'px'; requestAnimationFrame(animateCursor); }
+        animateCursor();
+        
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projects = document.querySelectorAll('.project-card');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => { b.classList.remove('active'); b.classList.add('text-gray-400'); });
+                btn.classList.add('active'); btn.classList.remove('text-gray-400');
+                const filter = btn.dataset.filter;
+                projects.forEach(p => {
+                    if (filter === 'all' || p.dataset.category === filter) {
+                        p.style.display = 'block'; p.style.opacity = '1';
+                    } else {
+                        p.style.opacity = '0'; setTimeout(() => p.style.display = 'none', 300);
+                    }
+                });
+            });
+        });
+        
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 });
+        revealElements.forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+</html>
